@@ -1,0 +1,7 @@
+---
+
+## Docker Default Variables ##
+
+# a list of user allowed to use docker
+docker_users:
+

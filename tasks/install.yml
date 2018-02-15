@@ -1,0 +1,49 @@
+---
+
+## Docker Install Tasks ##  
+
+- name: Add Docker-Main Repo
+  yum_repository:
+    name: docker-main
+    description: docker-main
+    baseurl: https://yum.dockerproject.org/repo/main/centos/7/
+    enabled: yes
+    file: docker
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Add Docker-Testing Repo
+  yum_repository:
+    name: docker-testing
+    description: docker-testing
+    baseurl: https://yum.dockerproject.org/repo/testing/centos/$releasever/
+    enabled: no
+    file: docker
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Add Docker-Beta Repo
+  yum_repository:
+    name: docker-beta
+    description: docker-beta
+    baseurl: https://yum.dockerproject.org/repo/beta/centos/7/
+    enabled: no
+    file: docker
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Add Docker-Nightly Repo
+  yum_repository:
+    name: docker-nightly
+    description: docker-nightly
+    baseurl: https://yum.dockerproject.org/repo/nightly/centos/7/
+    enabled: no
+    file: docker
+    gpgcheck: yes
+    gpgkey: https://yum.dockerproject.org/gpg
+
+- name: Install Docker Engine
+  yum:
+    name: docker-engine
+    state: present
+    

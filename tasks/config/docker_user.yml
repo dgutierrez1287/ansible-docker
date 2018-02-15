@@ -1,0 +1,11 @@
+---
+
+## Docker Add Allowed User Tasks ##
+
+- name: Add User to Docker Group
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+
+    

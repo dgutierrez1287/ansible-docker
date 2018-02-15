@@ -1,0 +1,9 @@
+---
+
+## Docker Main ##
+
+- name: Install Docker
+  include: install.yml
+
+- name: Configure Docker
+  include: config.yml

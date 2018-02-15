@@ -1,0 +1,49 @@
+---
+
+## Docker Config Tasks ##
+
+- name: Check for Serviced Directory
+  stat:
+    path: /etc/systemd/system/docker.service.d/docker.conf
+  register: st
+
+- name: Stop Docker Container Before Serviced Mods
+  service:
+    name: docker
+    state: stopped
+  when: st.stat.exists == False
+
+- name: Remove Docker Sock on First Run
+  file:
+    path: /var/run/docker.sock
+    state: absent
+  when: st.stat.exists == False
+
+- name: Ensure ServiceD Docker Dir
+  file:
+    path: /etc/systemd/system/docker.service.d
+    owner: root
+    group: root
+    mode: 0744
+    state: directory
+
+- name: Place Docker Service Config
+  template:
+    src: ../templates/docker_service.j2
+    dest: /etc/systemd/system/docker.service.d/docker.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Add Allowed Users to Docker Group
+  include: config/docker_user.yml
+  with_items: "{{ docker_users }}"
+  when: docker_users > 0
+
+- name: ensure docker service is enabled
+  service:
+    name: docker
+    enabled: yes
+    state: started
+
+    
