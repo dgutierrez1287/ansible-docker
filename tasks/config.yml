@@ -36,7 +36,7 @@
     mode: 0644
 
 - name: Add Allowed Users to Docker Group
-  include: config/docker_user.yml
+  include: config/docker-user.yml
   with_items: "{{ docker_users }}"
   when: docker_users > 0
 
