@@ -2,6 +2,9 @@
 
 ## Docker Default Variables ##
 
-# a list of user allowed to use docker
+# docker_package_state - the state for the docker package
+docker_package_state: present
+
+# docker_users - a list of user allowed to use docker
 docker_users:
 
